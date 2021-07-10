@@ -214,7 +214,7 @@ if(!function_exists('bc_upload')){
             return bc_error(__('File does not exist! Please double check the name and try again.'));
         }
         if(!bc_in_uploads($file)){
-            return bc_error(sprintf(__('Unable to locate needed folder (%s).'), 'uploads'));
+            return bc_error(sprintf(__('Unable to locate needed folder (%s).'), __('The uploads directory')));
         }
         $filename = wp_basename($file);
         $filetype_and_ext = wp_check_filetype_and_ext($file, $filename);
