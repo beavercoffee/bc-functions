@@ -32,6 +32,14 @@ if(!function_exists('bc_are_plugins_active')){
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+if(!function_exists('bc_build_update_checker')){
+    function bc_build_update_checker(...$args){
+        //return Puc_v4_Factory::buildUpdateChecker(...$args);
+    }
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 if(!function_exists('bc_copy')){
     function bc_copy($source = '', $destination = '', $overwrite = false, $mode = false){
         global $wp_filesystem;
