@@ -142,6 +142,9 @@ if(!function_exists('bc_maybe_generate_attachment_metadata')){
 			return false;
 		}
 		wp_raise_memory_limit('image');
+        if(!function_exists('wp_generate_attachment_metadata')){
+            require_once(ABSPATH . 'wp-admin/includes/image.php');
+        }
 		wp_maybe_generate_attachment_metadata($attachment);
 		return true;
     }
