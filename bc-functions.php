@@ -12,12 +12,12 @@ Plugin URI: https://github.com/beavercoffee/bc-functions
 Requires at least: 5.7
 Requires PHP: 5.6
 Text Domain: bc-functions
-Version: 1.7.9.2
+Version: 1.7.9.3
 */
 
 if(defined('ABSPATH')){
-    define('BC_FUNCTIONS', true);
-    foreach(glob(plugin_dir_path(__FILE__) . 'functions/*.php') as $functions){
+    define('BC_FUNCTIONS', __FILE__);
+    foreach(glob(plugin_dir_path(BC_FUNCTIONS) . 'functions/*.php') as $functions){
         require_once($functions);
     }
     unset($functions);
@@ -27,5 +27,5 @@ if(defined('ABSPATH')){
             echo bc_admin_notice($fs->get_error_message());
         }
     });
-    bc_build_update_checker('https://github.com/beavercoffee/bc-functions', __FILE__, 'bc-functions');
+    bc_build_update_checker('https://github.com/beavercoffee/bc-functions', BC_FUNCTIONS, 'bc-functions');
 }

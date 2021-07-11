@@ -34,7 +34,10 @@ if(!function_exists('bc_are_plugins_active')){
 
 if(!function_exists('bc_build_update_checker')){
     function bc_build_update_checker(...$args){
-        //return Puc_v4_Factory::buildUpdateChecker(...$args);
+        if(!class_exists('Puc_v4_Factory')){
+            require_once(plugin_dir_path(BC_FUNCTIONS) . 'includes/plugin-update-checker-4.11/plugin-update-checker.php');
+        }
+        return Puc_v4_Factory::buildUpdateChecker(...$args);
     }
 }
 
@@ -242,6 +245,17 @@ if(!function_exists('bc_post_type_labels')){
             'item_scheduled' => $singular . ' scheduled.',
             'item_updated' => $singular . ' updated.',
         ];
+    }
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+if(!function_exists('bc_str_get_html')){
+    function bc_str_get_html(...$args){
+        if(!function_exists('str_get_html')){
+            require_once(plugin_dir_path(BC_FUNCTIONS) . 'includes/simple-html-dom-1.9.1/simple_html_dom.php');
+        }
+        return str_get_html(...$args);
     }
 }
 
