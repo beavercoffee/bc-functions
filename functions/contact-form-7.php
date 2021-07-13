@@ -10,8 +10,7 @@ if(!function_exists('bc_cf7_mail')){
         if(null === $contact_form){
             return false;
         }
-        $skip_mail = ($contact_form->in_demo_mode() or $contact_form->is_true('skip_mail') or !empty($contact_form->skip_mail));
-        $skip_mail = apply_filters('wpcf7_skip_mail', $skip_mail, $contact_form);
+        $skip_mail = bc_cf7_skip_mail($contact_form);
         if($skip_mail){
         	return true;
         }
@@ -28,6 +27,22 @@ if(!function_exists('bc_cf7_mail')){
     		WPCF7_Mail::send($template, $name);
     	}
     	return true;
+    }
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+if(!function_exists('bc_cf7_skip_mail')){
+    function bc_cf7_skip_mail($contact_form = null){
+        if(null === $contact_form){
+            $contact_form = wpcf7_get_current_contact_form();
+        }
+        if(null === $contact_form){
+            return false;
+        }
+        $skip_mail = ($contact_form->in_demo_mode() or $contact_form->is_true('skip_mail') or !empty($contact_form->skip_mail));
+        $skip_mail = apply_filters('wpcf7_skip_mail', $skip_mail, $contact_form);
+        return $skip_mail;
     }
 }
 
