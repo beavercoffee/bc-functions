@@ -12,7 +12,7 @@ Plugin URI: https://github.com/beavercoffee/bc-functions
 Requires at least: 5.7
 Requires PHP: 5.6
 Text Domain: bc-functions
-Version: 1.7.14
+Version: 1.7.17
 */
 
 if(defined('ABSPATH')){
@@ -27,5 +27,8 @@ if(defined('ABSPATH')){
             echo bc_admin_notice($fs->get_error_message());
         }
     });
-    bc_build_update_checker('https://github.com/beavercoffee/bc-functions', BC_FUNCTIONS, 'bc-functions');
+    add_action('plugins_loaded', function(){
+        bc_build_update_checker('https://github.com/beavercoffee/bc-functions', BC_FUNCTIONS, 'bc-functions');
+        do_action('bc_functions_loaded');
+    });
 }
