@@ -107,6 +107,32 @@ if(!function_exists('bc_first_p')){
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+if(!function_exists('bc_get_post')){
+    function bc_get_post($post = null){
+        if(is_array($post)){
+            $args = array_merge($post, [
+                'posts_per_page' => 1,
+            ]);
+            $posts = get_posts($args);
+            if($posts){
+                return $posts[0];
+            } else {
+                return null;
+            }
+        } elseif(is_string($post) and 1 === preg_match('/^[a-z0-9]{13}$/', $post)){
+            return bc_get_post([
+                'meta_key' => 'bc_uniqid',
+                'meta_value' => $post,
+                'post_status' => 'any',
+            ]);
+        } else {
+            return get_post($post);
+        }
+    }
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 if(!function_exists('bc_in_uploads')){
     function bc_in_uploads($file = ''){
         $upload_dir = wp_get_upload_dir();
