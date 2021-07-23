@@ -28,7 +28,10 @@ if(defined('ABSPATH')){
         }
     });
     add_action('plugins_loaded', function(){
-        bc_build_update_checker('https://github.com/beavercoffee/bc-functions', BC_FUNCTIONS, 'bc-functions');
-        do_action('bc_functions_loaded');
+        $fs = bc_filesystem();
+        if(!is_wp_error($fs)){
+            bc_build_update_checker('https://github.com/beavercoffee/bc-functions', BC_FUNCTIONS, 'bc-functions');
+            do_action('bc_functions_loaded');
+        }
     });
 }
