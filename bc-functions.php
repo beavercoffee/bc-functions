@@ -12,25 +12,22 @@ Plugin URI: https://github.com/beavercoffee/bc-functions
 Requires at least: 5.7
 Requires PHP: 5.6
 Text Domain: bc-functions
-Version: 1.7.22
+Version: 1.7.24
 */
 
 if(defined('ABSPATH')){
-    define('BC_FUNCTIONS', __FILE__);
-    foreach(glob(plugin_dir_path(BC_FUNCTIONS) . 'functions/*.php') as $functions){
+    foreach(glob(plugin_dir_path(__FILE__) . 'functions/*.php') as $functions){
         require_once($functions);
     }
     unset($functions);
-    add_action('admin_notices', function(){
-        $fs = bc_filesystem();
-        if(is_wp_error($fs)){
-            echo bc_admin_notice($fs->get_error_message());
-        }
-    });
     add_action('plugins_loaded', function(){
         $fs = bc_filesystem();
-        if(!is_wp_error($fs)){
-            bc_build_update_checker('https://github.com/beavercoffee/bc-functions', BC_FUNCTIONS, 'bc-functions');
+        if(is_wp_error($fs)){
+            bc_add_admin_notice($fs->get_error_message());
+        } else {
+            $GLOBALS['bc_hooks'] = [];
+            bc_build_update_checker('https://github.com/beavercoffee/bc-functions', __FILE__, 'bc-functions');
+            define('BC_FUNCTIONS', __FILE__);
             do_action('bc_functions_loaded');
         }
     });
