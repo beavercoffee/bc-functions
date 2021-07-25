@@ -152,6 +152,22 @@ if(!function_exists('bc_custom_login_logo')){
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+if(!function_exists('bc_enqueue_floating_labels')){
+    function bc_enqueue_floating_labels(){
+        bc_one('wp_enqueue_scripts', function(){
+            $src = plugin_dir_url(BC_FUNCTIONS) . 'assets/bc-floating-labels.js';
+            $ver = filemtime(plugin_dir_path(BC_FUNCTIONS) . 'assets/bc-floating-labels.js');
+            wp_enqueue_script('bc-floating-labels', $src, ['jquery'], $ver, true);
+            wp_add_inline_script('bc-floating-labels', 'bc_floating_labels.init();');
+            $src = plugin_dir_url(BC_FUNCTIONS) . 'assets/bc-floating-labels.css';
+            $ver = filemtime(plugin_dir_path(BC_FUNCTIONS) . 'assets/bc-floating-labels.css');
+            wp_enqueue_style('bc-floating-labels', $src, [], $ver);
+        });
+    }
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 if(!function_exists('bc_error')){
     function bc_error($message = '', $data = ''){
         if(!$message){
@@ -532,22 +548,6 @@ if(!function_exists('bc_signon_without_password')){
             remove_filter('authenticate', $idx);
             return $user;
         }
-    }
-}
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-if(!function_exists('bc_use_floating_labels')){
-    function bc_use_floating_labels(){
-        bc_one('wp_enqueue_scripts', function(){
-            $src = plugin_dir_url(BC_FUNCTIONS) . 'assets/bc-floating-labels.js';
-            $ver = filemtime(plugin_dir_path(BC_FUNCTIONS) . 'assets/bc-floating-labels.js');
-            wp_enqueue_script('bc-floating-labels', $src, ['jquery'], $ver, true);
-            wp_add_inline_script('bc-floating-labels', 'bc_floating_labels.init();');
-            $src = plugin_dir_url(BC_FUNCTIONS) . 'assets/bc-floating-labels.css';
-            $ver = filemtime(plugin_dir_path(BC_FUNCTIONS) . 'assets/bc-floating-labels.css');
-            wp_enqueue_style('bc-floating-labels', $src, [], $ver);
-        });
     }
 }
 
