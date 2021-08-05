@@ -87,6 +87,16 @@ if(!function_exists('bc_base64_urlencode')){
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+if(!function_exists('bc_canonicalize')){
+    function bc_canonicalize($key = ''){
+        $key = bc_remove_whitespaces($key);
+        $key = str_replace(' ', '', $key);
+        return WP_REST_Request::canonicalize_header_name($key);
+    }
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 if(!function_exists('bc_clone_role')){
     function bc_clone_role($source = '', $destination = '', $display_name = ''){
         $role = get_role($source);
